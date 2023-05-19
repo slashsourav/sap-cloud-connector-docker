@@ -60,8 +60,9 @@ RUN chsh -s /bin/bash sccadmin
 
 # expose connector server
 EXPOSE 8443
-USER sccadmin
-WORKDIR /opt/sap/scc
+# USER sccadmin
+USER root
+# WORKDIR /opt/sap/scc
 
 # survive container destruction/recreation
 VOLUME /opt/sap/scc/config
@@ -69,5 +70,7 @@ VOLUME /opt/sap/scc/scc_config
 VOLUME /opt/sap/scc/log
 
 # finally run sapcc as PID 1
-RUN whoami
+RUN chmod -R 777 /opt/sap/scc/*
+USER sccadmin
+WORKDIR /opt/sap/scc
 CMD /opt/sap/scc/go.sh
