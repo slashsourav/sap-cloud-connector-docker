@@ -70,7 +70,7 @@ VOLUME /opt/sap/scc/scc_config
 VOLUME /opt/sap/scc/log
 
 # finally run sapcc as PID 1
-RUN chmod -R 777 /opt/sap
+RUN chmod -R 777 /opt
 USER sccadmin
 WORKDIR /opt/sap/scc
 CMD /opt/sap/scc/go.sh
