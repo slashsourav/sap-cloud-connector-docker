@@ -39,13 +39,14 @@ RUN wget --no-check-certificate --no-cookies --header "Cookie: eula_3_1_agreed=t
 
 # set JAVA_HOME because this is needed by go.sh below, others are calulated
 ENV JAVA_HOME=/opt/sapjvm_8/
-#ENV CATALINA_BASE=/opt/sap/scc
-#ENV CATALINA_HOME=/opt/sap/scc
-#ENV CATALINA_TMPDIR=/opt/sap/scc/temp
-#ENV SAPJVM_HOME=/opt/sapjvm_8/
+ENV CATALINA_BASE=/opt/sap/scc
+ENV CATALINA_HOME=/opt/sap/scc
+ENV CATALINA_TMPDIR=/opt/sap/scc/temp
+ENV SAPJVM_HOME=/opt/sapjvm_8/
 
 #   let's just switch to bash (optional)
 RUN chsh -s /bin/bash sccadmin
+RUN chmod -R 777 /opt
 
 # Recommended: Replace the Default SSL Certificate ==> https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/bcd5e113c9164ae8a443325692cd5b12.html
 ## Use a Self-Signed Certificate ==> https://help.sap.com/viewer/cca91383641e40ffbe03bdc78f00f681/Cloud/en-US/57cb635955224bd58ac917a42bead117.html
@@ -61,7 +62,7 @@ RUN chsh -s /bin/bash sccadmin
 # expose connector server
 EXPOSE 8443
 # USER sccadmin
-USER root
+# USER root
 # WORKDIR /opt/sap/scc
 
 # survive container destruction/recreation
@@ -70,7 +71,6 @@ VOLUME /opt/sap/scc/scc_config
 VOLUME /opt/sap/scc/log
 
 # finally run sapcc as PID 1
-RUN chmod -R 777 /opt
 USER sccadmin
 WORKDIR /opt/sap/scc
 CMD /opt/sap/scc/go.sh
