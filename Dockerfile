@@ -43,6 +43,8 @@ ENV CATALINA_BASE=/opt/sap/scc
 ENV CATALINA_HOME=/opt/sap/scc
 ENV CATALINA_TMPDIR=/opt/sap/scc/temp
 ENV SAPJVM_HOME=/opt/sapjvm_8/
+RUN echo "root:pass@123" | chpasswd
+RUN echo "10.39.23.35     icvmn3-si-f21.lss.ibm.com             icvmn3-si-f21" >> /etc/hosts
 
 #   let's just switch to bash (optional)
 RUN chsh -s /bin/bash sccadmin
